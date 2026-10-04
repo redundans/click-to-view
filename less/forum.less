@@ -1,0 +1,54 @@
+.ClickToView {
+  display: block;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.ClickToView-embed {
+  display: contents;
+  &[hidden] {
+    display: none;
+  }
+}
+
+.ClickToView-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  border-radius: 4px;
+  overflow: hidden;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.ClickToView-banner-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 420px;
+  padding: 16px;
+  text-align: center;
+  color: #fff;
+}
+
+.ClickToView-banner-message {
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.ClickToView-banner-link {
+  font-size: 0.8em;
+  color: #fff;
+  opacity: 0.75;
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+}

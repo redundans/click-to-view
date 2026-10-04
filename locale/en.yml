@@ -1,7 +1,8 @@
 redundans-click-to-view:
   # For more details on the format
   # Checkout https://docs.flarum.org/2.x/extend/i18n/#appendix-a-standard-key-format
-  admin:
-    my_cool_key: My Cool Key
-
   forum:
+    click_to_view:
+      message: "This content is hosted by {site}. Showing it may allow {site} to set cookies and track your activity before you have given consent."
+      button: "Show content from {site}"
+      source_link: "Open the original {site} link"
