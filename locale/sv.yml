@@ -1,0 +1,6 @@
+redundans-click-to-view:
+  forum:
+    click_to_view:
+      message: "Det här innehållet är hostat av {site}. Att visa det kan göra att {site} sätter kakor och spårar din aktivitet."
+      button: "Godkäll innehåll från {site}"
+      source_link: "Öppna ursprungslänken till {site}"

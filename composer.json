@@ -26,9 +26,9 @@
             "title": "Click to View",
             "category": "",
             "icon": {
-                "name": "",
-                "color": "",
-                "backgroundColor": ""
+                "name": "fas fa-solid fa-triangle-exclamation",
+                "color": "#222222",
+                "backgroundColor": "#fab005"
             }
         },
         "flarum-cli": {
