@@ -63,11 +63,24 @@ describe('transformEmbedsHtml', () => {
     expect(doc.querySelector('.ClickToView-banner-message')?.textContent).toBe('message:youtube');
     expect(doc.querySelector('.ClickToView-banner-button')?.textContent).toBe('button:youtube');
 
+    // The link points at the canonical watch page, not the raw embed-player
+    // src — opening an embed URL directly as a top-level page doesn't
+    // reliably work (e.g. YouTube can refuse to play depending on the
+    // uploader's embedding restrictions).
     const link = doc.querySelector<HTMLAnchorElement>('.ClickToView-banner-link');
     expect(link?.textContent).toBe('link:youtube');
-    expect(link?.getAttribute('href')).toBe('https://www.youtube.com/embed/abc123');
+    expect(link?.getAttribute('href')).toBe('https://www.youtube.com/watch?v=abc123');
     expect(link?.getAttribute('target')).toBe('_blank');
     expect(link?.getAttribute('rel')).toBe('nofollow noopener noreferrer');
+  });
+
+  it('resolves youtube-nocookie.com embed URLs (used by FriendsOfFlarum/formatting) to a working watch link', () => {
+    const html = youtubeEmbedHtml.replace('https://www.youtube.com/embed/abc123', 'https://www.youtube-nocookie.com/embed/abc123');
+    const result = transformEmbedsHtml(html, bannerContent);
+    const doc = new DOMParser().parseFromString(result, 'text/html');
+
+    const link = doc.querySelector<HTMLAnchorElement>('.ClickToView-banner-link');
+    expect(link?.getAttribute('href')).toBe('https://www.youtube.com/watch?v=abc123');
   });
 
   it('leaves embeds without an iframe untouched', () => {
@@ -96,5 +109,10 @@ describe('transformEmbedsHtml', () => {
     expect(embedContainer?.contains(iframe)).toBe(true);
 
     expect(doc.querySelector('.ClickToView-banner-message')?.textContent).toBe('message:soundcloud');
+    // SoundCloud has no canonical-URL resolver, so the fallback is the raw
+    // embed src — still better than nothing, even if not the "nicest" URL.
+    expect(doc.querySelector<HTMLAnchorElement>('.ClickToView-banner-link')?.getAttribute('href')).toBe(
+      'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/artist/track'
+    );
   });
 });
