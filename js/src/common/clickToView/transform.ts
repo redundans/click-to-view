@@ -1,3 +1,5 @@
+import { resolveSourceUrl } from './canonicalUrl';
+
 /**
  * Text to render inside a click-to-view banner for a given provider.
  */
@@ -68,7 +70,7 @@ export function transformEmbedsHtml(html: string | null | undefined, getBannerCo
 
     const sourceLink = doc.createElement('a');
     sourceLink.className = 'ClickToView-banner-link';
-    sourceLink.href = src;
+    sourceLink.href = resolveSourceUrl(site, src);
     sourceLink.target = '_blank';
     sourceLink.rel = 'nofollow noopener noreferrer';
     sourceLink.textContent = sourceLinkLabel;
